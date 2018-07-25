@@ -1,14 +1,15 @@
-package main
+package operations_test
 
 import (
 	"testing"
 	"github.com/pufferpanel/pufferd/programs/operations/ops"
+	"github.com/pufferpanel/modules/operations"
 )
 
 func TestMojangDlOperationFactory_Create(t *testing.T) {
 	var factory ops.OperationFactory
 
-	factory = MojangDlOperationFactory{}
+	factory = operations.MojangDlOperationFactory{}
 
 	if factory.Key() != "mojangdl" {
 		t.Fail()

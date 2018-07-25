@@ -1,4 +1,4 @@
-package main
+package operations
 
 import (
 	"encoding/json"
@@ -6,6 +6,11 @@ import (
 	"github.com/pufferpanel/pufferd/environments"
 	"github.com/pufferpanel/pufferd/programs/operations/ops"
 	"net/http"
+	"github.com/pufferpanel/apufferi/logging"
+	"errors"
+	"os"
+	"path"
+	"io"
 )
 
 const VERSION_JSON = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
@@ -30,38 +35,64 @@ func (op MojangDl) Run(env environments.Environment) error {
 
 	for _, version := range data.Versions {
 		if version.Id == op.Version {
-			fmt.Println(version)
+			logging.Debugf("Version %s json located, downloading from %s", version.Id, version.Url)
+			env.DisplayToConsole(fmt.Sprintf("Version %s json located, downloading from %s", version.Id, version.Url))
 			//now, get the version json for this one...
-			downloadServerFromJson(version.Url, op.Target, env)
+			return downloadServerFromJson(version.Url, op.Target, env)
 		}
 	}
 
-	return nil
+	env.DisplayToConsole("Could not locate version " + op.Version)
+
+	return errors.New("Version not located: " + op.Version)
 }
 
-func downloadServerFromJson(url, file string, env environments.Environment) error {
+func downloadServerFromJson(url, target string, env environments.Environment) error {
 	client := &http.Client{}
 	response, err := client.Get(url)
-	defer response.Body.Close()
 	if err != nil {
 		return err
 	}
+
+	defer response.Body.Close()
 
 	var data MojangVersionJson
 
 	json.NewDecoder(response.Body).Decode(&data)
 
-	fmt.Println(data.Downloads["server"])
+	serverBlock := data.Downloads["server"]
 
-	return nil
+	logging.Debugf("Version jar located, downloading from %s", serverBlock.Url)
+	env.DisplayToConsole(fmt.Sprintf("Version jar located, downloading from %s", serverBlock.Url))
+
+	return downloadFile(serverBlock.Url, target, env)
+}
+
+func downloadFile(url, fileName string, env environments.Environment) error {
+	target, err := os.Create(path.Join(env.GetRootDirectory(), fileName))
+	if err != nil {
+		return err
+	}
+	defer target.Close()
+
+	client := &http.Client{}
+
+	response, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+	defer response.Body.Close()
+
+	_, err = io.Copy(target, response.Body)
+	return err
 }
 
 type MojangDlOperationFactory struct {
 }
 
 func (of MojangDlOperationFactory) Create(op ops.CreateOperation) ops.Operation {
-	version := op.DataMap["version"].(string)
-	target := op.DataMap["target"].(string)
+	version := op.OperationArgs["version"].(string)
+	target := op.OperationArgs["target"].(string)
 	return MojangDl{Version: version, Target: target}
 }
 
