@@ -1,4 +1,4 @@
-package operations
+package mojangdl
 
 import (
 	"encoding/json"

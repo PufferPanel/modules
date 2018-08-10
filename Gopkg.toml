@@ -1,0 +1,11 @@
+[[constraint]]
+  name = "github.com/pufferpanel/apufferi"
+  version = "2.0.0"
+
+[[constraint]]
+  name = "github.com/pufferpanel/pufferd"
+  branch = "master"
+
+[prune]
+  go-tests = true
+  unused-packages = true
