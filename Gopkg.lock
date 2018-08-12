@@ -2,42 +2,33 @@
 
 
 [[projects]]
-  digest = "1:adbfc2db750d6fbe0c165ad801ba2d730883a3bc40bc8fe829516eb42ed17771"
   name = "github.com/Microsoft/go-winio"
   packages = ["."]
-  pruneopts = "UT"
   revision = "a6d595ae73cf27a1b8fc32930668708f45ce1c85"
   version = "v0.4.9"
 
 [[projects]]
-  digest = "1:e92f5581902c345eb4ceffdcd4a854fb8f73cf436d47d837d1ec98ef1fe0a214"
   name = "github.com/StackExchange/wmi"
   packages = ["."]
-  pruneopts = "UT"
   revision = "5d049714c4a64225c3c79a7cf7d02f7fb5b96338"
   version = "1.0.0"
 
 [[projects]]
-  digest = "1:18d3339287ed981065cbffedb0dc81196638666d04c83141e973a9bfad1be4a4"
   name = "github.com/cavaliercoder/grab"
   packages = ["."]
-  pruneopts = "UT"
   revision = "466b5c0dd1d077be6de521d4e753734b17899a4d"
   version = "v2.0.0"
 
 [[projects]]
-  digest = "1:4189ee6a3844f555124d9d2656fe7af02fca961c2a9bad9074789df13a0c62e0"
   name = "github.com/docker/distribution"
   packages = [
     "digestset",
-    "reference",
+    "reference"
   ]
-  pruneopts = "UT"
   revision = "83389a148052d74ac602f5f1d62f86ff2f3c4aa5"
 
 [[projects]]
   branch = "master"
-  digest = "1:851a64a04e2f659b15066638ddec1191720f0a6ea563951e824c02a5bcd93dd5"
   name = "github.com/docker/docker"
   packages = [
     "api",
@@ -57,120 +48,96 @@
     "api/types/versions",
     "api/types/volume",
     "client",
-    "errdefs",
+    "errdefs"
   ]
-  pruneopts = "UT"
   revision = "4122eb1a43a42c4c8b827b4d0fb3d6543f9f2c91"
 
 [[projects]]
-  digest = "1:d339ac52dc03196c71c8403084882308da59b09a1ae4048b6b5f83640557a972"
   name = "github.com/docker/go-connections"
   packages = [
     "nat",
     "sockets",
-    "tlsconfig",
+    "tlsconfig"
   ]
-  pruneopts = "UT"
   revision = "7beb39f0b969b075d1325fecb092faf27fd357b6"
 
 [[projects]]
-  digest = "1:6f82cacd0af5921e99bf3f46748705239b36489464f4529a1589bc895764fb18"
   name = "github.com/docker/go-units"
   packages = ["."]
-  pruneopts = "UT"
   revision = "47565b4f722fb6ceae66b95f853feed578a4a51c"
   version = "v0.3.3"
 
 [[projects]]
-  digest = "1:64a5a67c69b70c2420e607a8545d674a23778ed9c3e80607bfd17b77c6c87f6a"
   name = "github.com/go-ole/go-ole"
   packages = [
     ".",
-    "oleutil",
+    "oleutil"
   ]
-  pruneopts = "UT"
   revision = "a41e3c4b706f6ae8dfbff342b06e40fa4d2d0506"
   version = "v1.2.1"
 
 [[projects]]
-  digest = "1:9a688317f3231e0175b3429033f44411906c0ce119361b7b5019d01375f8cff7"
   name = "github.com/gogo/protobuf"
   packages = ["proto"]
-  pruneopts = "UT"
   revision = "1adfc126b41513cc696b209667c8656ea7aac67c"
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:43dd08a10854b2056e615d1b1d22ac94559d822e1f8b6fcc92c1a1057e85188e"
   name = "github.com/gorilla/websocket"
   packages = ["."]
-  pruneopts = "UT"
   revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
   version = "v1.2.0"
 
 [[projects]]
-  digest = "1:094e04c4742b596bce4455eb535d4e4365016b44016db76f8593211406d77299"
   name = "github.com/kr/pty"
   packages = ["."]
-  pruneopts = "UT"
   revision = "fa756f09eeb418bf1cc6268c66ceaad9bb98f598"
   version = "v1.1.2"
 
 [[projects]]
-  digest = "1:ee4d4af67d93cc7644157882329023ce9a7bcfce956a079069a9405521c7cc8d"
   name = "github.com/opencontainers/go-digest"
   packages = ["."]
-  pruneopts = "UT"
   revision = "279bed98673dd5bef374d3b6e4b09e2af76183bf"
   version = "v1.0.0-rc1"
 
 [[projects]]
-  digest = "1:11db38d694c130c800d0aefb502fb02519e514dc53d9804ce51d1ad25ec27db6"
   name = "github.com/opencontainers/image-spec"
   packages = [
     "specs-go",
-    "specs-go/v1",
+    "specs-go/v1"
   ]
-  pruneopts = "UT"
   revision = "d60099175f88c47cd379c4738d158884749ed235"
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
   name = "github.com/pkg/errors"
   packages = ["."]
-  pruneopts = "UT"
   revision = "839d9e913e063e28dfd0e6c7b7512793e0a48be9"
 
 [[projects]]
-  digest = "1:970d8e805a10fee92f523ac9ce0d06c57c0f998bf411b528583f2fc5baaeb4dd"
   name = "github.com/pufferpanel/apufferi"
   packages = [
     "cache",
     "common",
     "config",
-    "logging",
+    "logging"
   ]
-  pruneopts = "UT"
   revision = "bc4fdb9b960675a3cb7c0f77fbb224d94a88a7f4"
   version = "v2.0.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:c9e857e5c60bd562218ebc859faf6d55bdc6832fe5db7da649ce2fdea41f0104"
   name = "github.com/pufferpanel/pufferd"
   packages = [
     "cache",
     "environments",
     "errors",
     "programs/operations/ops",
-    "utils",
+    "utils"
   ]
-  pruneopts = "UT"
   revision = "4e503154373f1690a3a1f854433bf8fe771f4ccd"
 
 [[projects]]
-  digest = "1:7395b855a6078ad2e6c40311402a057a91125fb9f32cf228e1b32cdc57c33538"
   name = "github.com/shirou/gopsutil"
   packages = [
     "cpu",
@@ -178,50 +145,39 @@
     "internal/common",
     "mem",
     "net",
-    "process",
+    "process"
   ]
-  pruneopts = "UT"
   revision = "8048a2e9c5773235122027dd585cf821b2af1249"
   version = "v2.18.07"
 
 [[projects]]
   branch = "master"
-  digest = "1:99c6a6dab47067c9b898e8c8b13d130c6ab4ffbcc4b7cc6236c2cd0b1e344f5b"
   name = "github.com/shirou/w32"
   packages = ["."]
-  pruneopts = "UT"
   revision = "bb4de0191aa41b5507caa14b0650cdbddcd9280b"
 
 [[projects]]
-  digest = "1:58cb5fbdf85e1f468c749aa31773ff102866831106f52762b2823ae235ca11e7"
   name = "golang.org/x/net"
   packages = [
     "context",
     "context/ctxhttp",
     "internal/socks",
-    "proxy",
+    "proxy"
   ]
-  pruneopts = "UT"
   revision = "a680a1efc54dd51c040b3b5ce4939ea3cf2ea0d1"
 
 [[projects]]
   branch = "master"
-  digest = "1:82b7731afcda03e0629a4a3013632f8b8b2384f43e063f74763125e988252e9c"
   name = "golang.org/x/sys"
   packages = [
     "unix",
-    "windows",
+    "windows"
   ]
-  pruneopts = "UT"
   revision = "f0d5e33068cb57c22a181f5df0ffda885309eb5a"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = [
-    "github.com/pufferpanel/apufferi/logging",
-    "github.com/pufferpanel/pufferd/environments",
-    "github.com/pufferpanel/pufferd/programs/operations/ops",
-  ]
+  inputs-digest = "4652ccd3227b5c83c44c99aed6da80f5f6acde1c92efc0d97372fd1c1764a9bd"
   solver-name = "gps-cdcl"
   solver-version = 1

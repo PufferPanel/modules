@@ -77,6 +77,8 @@ func downloadFile(url, fileName string, env environments.Environment) error {
 
 	client := &http.Client{}
 
+	logging.Debug("Downloading: " + url)
+
 	response, err := client.Get(url)
 	if err != nil {
 		return err

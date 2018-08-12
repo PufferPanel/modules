@@ -3,13 +3,12 @@ package mojangdl
 import (
 	"testing"
 	"github.com/pufferpanel/pufferd/programs/operations/ops"
-	"github.com/pufferpanel/modules/operations"
 )
 
 func TestMojangDlOperationFactory_Create(t *testing.T) {
 	var factory ops.OperationFactory
 
-	factory = operations.MojangDlOperationFactory{}
+	factory = MojangDlOperationFactory{}
 
 	if factory.Key() != "mojangdl" {
 		t.Fail()
@@ -20,11 +19,12 @@ func TestMojangDlOperationFactory_Create(t *testing.T) {
 	filename := "server.jar"
 
 	createCmd := ops.CreateOperation{
+		OperationArgs: make(map[string]interface{}),
 		DataMap: make(map[string]interface{}),
 	}
 
-	createCmd.DataMap["version"] = version
-	createCmd.DataMap["target"] = filename
+	createCmd.OperationArgs["version"] = version
+	createCmd.OperationArgs["target"] = filename
 
 
 	op := factory.Create(createCmd)

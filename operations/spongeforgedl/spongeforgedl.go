@@ -9,14 +9,39 @@ import (
 	"io"
 	"encoding/json"
 	"errors"
+	"github.com/pufferpanel/apufferi/logging"
+	"github.com/pufferpanel/apufferi/common"
 )
 
 const DOWNLOAD_API_URL = "https://dl-api.spongepowered.org/v1/org.spongepowered/spongeforge/downloads?type=stable"
-const RECOMMENDED_API_URL = "https://dl-api.spongepowered.org/v1/org.spongepowered/${project}/downloads/recommended"
+const RECOMMENDED_API_URL = "https://dl-api.spongepowered.org/v1/org.spongepowered/spongeforge/downloads/recommended"
+const FORGE_URL = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/${minecraft}-${forge}/forge-${minecraft}-${forge}-installer.jar"
 
 type SpongeForgeDl struct {
 	ReleaseType string
-	Target      string
+}
+
+type SpongeForgeDlOperationFactory struct {
+}
+
+func (of SpongeForgeDlOperationFactory) Key() string {
+	return "spongeforgedl"
+}
+
+var Factory SpongeForgeDlOperationFactory
+
+type download struct {
+	Dependencies dependencies        `json:"dependencies"`
+	Artifacts    map[string]artifact `json:"artifacts"`
+}
+
+type dependencies struct {
+	Forge     string `json:"forge"`
+	Minecraft string `json:"minecraft"`
+}
+
+type artifact struct {
+	Url string `json:"url"`
 }
 
 func (op SpongeForgeDl) Run(env environments.Environment) error {
@@ -53,35 +78,31 @@ func (op SpongeForgeDl) Run(env environments.Environment) error {
 		return errors.New("no artifacts found to download")
 	}
 
+	var versionMapping = make(map[string]interface{})
+	versionMapping["forge"] = versionData.Dependencies.Forge
+	versionMapping["minecraft"] = versionData.Dependencies.Minecraft
+
+	err := downloadFile(common.ReplaceTokens(FORGE_URL, versionMapping), "forge-installer.jar", env)
+	if err != nil {
+		return err
+	}
+
+	err = os.Mkdir(path.Join(env.GetRootDirectory(), "mods"), 0755)
+	if err != nil && !os.IsExist(err) {
+		return err
+	}
+
+	err = downloadFile(versionData.Artifacts[""].Url, path.Join("mods", "spongeforge.jar"), env)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
-type SpongeForgeDlOperationFactory struct{}
-
 func (of SpongeForgeDlOperationFactory) Create(op ops.CreateOperation) ops.Operation {
 	releaseType := op.OperationArgs["releaseType"].(string)
-	target := op.OperationArgs["target"].(string)
-	return SpongeForgeDl{ReleaseType: releaseType, Target: target}
-}
-
-func (of SpongeForgeDlOperationFactory) Key() string {
-	return "spongeforgedl"
-}
-
-var Factory SpongeForgeDlOperationFactory
-
-type download struct {
-	Dependencies dependencies        `json:"dependencies"`
-	Artifacts    map[string]artifact `json:"artifacts"`
-}
-
-type dependencies struct {
-	Forge     string `json:"forge"`
-	Minecraft string `json:"minecraft"`
-}
-
-type artifact struct {
-	Url string `json:"url"`
+	return SpongeForgeDl{ReleaseType: releaseType}
 }
 
 func downloadFile(url, fileName string, env environments.Environment) error {
@@ -92,6 +113,9 @@ func downloadFile(url, fileName string, env environments.Environment) error {
 	defer target.Close()
 
 	client := &http.Client{}
+
+	logging.Debug("Downloading: " + url)
+	env.DisplayToConsole("Downloading: " + url)
 
 	response, err := client.Get(url)
 	if err != nil {
